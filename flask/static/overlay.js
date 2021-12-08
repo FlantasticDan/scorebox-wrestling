@@ -2,8 +2,8 @@ const scorebox = document.getElementById('scorebox')
 
 const homeScore = document.getElementById('home-score')
 const visitorScore = document.getElementById('visitor-score')
-const setScores = document.getElementById('set-score')
-const currentSet = document.getElementById('current-set')
+const clock = document.getElementById('clock-item')
+const period = document.getElementById('period')
 
 const homeSummaryScore = document.getElementById('home-summary-score')
 const visitorSummaryScore = document.getElementById('visitor-summary-score')
@@ -16,8 +16,8 @@ const visitorAlert = document.getElementById('visitor-alert')
 const neutralAlert = document.getElementById('neutral-alert')
 
 let statusObject = undefined
-let homeSets = 0
-let visitorSets = 0
+let homeTeamScore = 0
+let visitorTeamScore = 0
 
 const socket = io()
 
@@ -53,18 +53,31 @@ function HideAlerts() {
 
 function ProcessAlert() {
     HideAlerts()
+    let alert = statusObject.alert_text.split('*')
     switch (statusObject.alert_mode)
     {
         case 'home':
-            homeAlert.innerText = statusObject.alert_text
+            homeAlert.innerText = alert[0]
             homeAlert.classList.remove('hidden')
+            visitorAlert.innerText = alert[2]
+            visitorAlert.classList.remove('hidden')
+            neutralAlert.innerText = alert[1]
+            neutralAlert.classList.remove('hidden')
             break
         case 'visitor':
-            visitorAlert.innerText = statusObject.alert_text
+            homeAlert.innerText = alert[0]
+            homeAlert.classList.remove('hidden')
+            visitorAlert.innerText = alert[2]
             visitorAlert.classList.remove('hidden')
+            neutralAlert.innerText = alert[1]
+            neutralAlert.classList.remove('hidden')
             break
         case 'neutral':
-            neutralAlert.innerText = statusObject.alert_text
+            homeAlert.innerText = alert[0]
+            homeAlert.classList.remove('hidden')
+            visitorAlert.innerText = alert[2]
+            visitorAlert.classList.remove('hidden')
+            neutralAlert.innerText = alert[1]
             neutralAlert.classList.remove('hidden')
             break
         default:
@@ -91,8 +104,8 @@ function ScoreBoxIn() {
 }
 
 function ProcessDisplayMode() {
-    homeSummaryScore.innerText = homeSets
-    visitorSummaryScore.innerText = visitorSets
+    homeSummaryScore.innerText = homeTeamScore
+    visitorSummaryScore.innerText = visitorTeamScore
 
     if (statusObject.display_mode == 'live')
     {

@@ -37,8 +37,8 @@
                 </div>
             </div>
             <div id="clock" class="clock-box">
-                <div id="set-score">5 - 5</div>
-                <div id="current-set">Set 0</div>
+                <div id="clock-item">1:32</div>
+                <div id="period">Period 0</div>
             </div>
             <div id="visitor" class="team-box {{visitor_color}}">
                 <div class="team-logo">
@@ -74,27 +74,27 @@
         <script>
             {% if not remote %}
                 socket.on('update', payload => {
-                    homeScore.innerText = payload.home_score
-                    visitorScore.innerText = payload.visitor_score
+                    homeScore.innerText = payload.home_match_score
+                    visitorScore.innerText = payload.visitor_match_score
 
-                    setScores.innerText = `${payload.home_sets} - ${payload.visitor_sets}`
-                    currentSet.innerText = `Set ${payload.current_set}`
+                    clock.innerText = `${payload.clock}`
+                    period.innerText = `${payload.period}`
 
-                    homeSets = payload.home_sets
-                    visitorSets = payload.visitor_sets
+                    homeTeamScore = payload.home_team_score
+                    visitorTeamScore = payload.visitor_team_score
                 })
 
             {% else %}
                 source = io("{{source}}:9876")
                 source.on('update', payload => {
-                    homeScore.innerText = payload.home_score
-                    visitorScore.innerText = payload.visitor_score
+                    homeScore.innerText = payload.home_match_score
+                    visitorScore.innerText = payload.visitor_match_score
 
-                    setScores.innerText = `${payload.home_sets} - ${payload.visitor_sets}`
-                    currentSet.innerText = `Set ${payload.current_set}`
+                    clock.innerText = `${payload.clock}`
+                    period.innerText = `${payload.period}`
 
-                    homeSets = payload.home_sets
-                    visitorSets = payload.visitor_sets
+                    homeTeamScore = payload.home_team_score
+                    visitorTeamScore = payload.visitor_team_score
                 })
             {% endif %}
         </script>
