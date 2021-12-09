@@ -40,23 +40,27 @@
             <iframe src="/overlay" scrolling="no"></iframe>
             <div class="raw-data">
                 <div class="raw-data-item">
-                    <div class="raw-data-header">Home Score</div>
+                    <div class="raw-data-header">Home Team Score</div>
                     <div class="raw-data-content" id="raw-home-score">n/a</div>
                 </div>
                 <div class="raw-data-item">
-                    <div class="raw-data-header">Home Sets</div>
+                    <div class="raw-data-header">Home Match Score</div>
                     <div class="raw-data-content" id="raw-home-sets">n/a</div>
                 </div>
                 <div class="raw-data-item">
-                    <div class="raw-data-header">Set</div>
-                    <div class="raw-data-content" id="raw-set">n/a</div>
+                    <div class="raw-data-header">Clock</div>
+                    <div class="raw-data-content" id="raw-clock">n/a</div>
                 </div>
                 <div class="raw-data-item">
-                    <div class="raw-data-header">Visitor Sets</div>
+                    <div class="raw-data-header">Period</div>
+                    <div class="raw-data-content" id="raw-period">n/a</div>
+                </div>
+                <div class="raw-data-item">
+                    <div class="raw-data-header">Visitor Match Score</div>
                     <div class="raw-data-content" id="raw-visitor-sets">n/a</div>
                 </div>
                 <div class="raw-data-item">
-                    <div class="raw-data-header">Visitor Score</div>
+                    <div class="raw-data-header">Visitor Team Score</div>
                     <div class="raw-data-content" id="raw-visitor-score">n/a</div>
                 </div>
             </div>
@@ -137,11 +141,12 @@
                 })
 
                 socket.on('update', payload => {
-                    rawHomeScore.innerText = payload.home_score
-                    rawVisitorScore.innerText = payload.visitor_score
-                    rawHomeSets.innerText = payload.home_sets
-                    rawVisitorSets.innerText = payload.visitor_sets
-                    rawSet.innerText = payload.current_set
+                    rawHomeScore.innerText = payload.home_team_score
+                    rawVisitorScore.innerText = payload.visitor_team_score
+                    rawHomeSets.innerText = payload.home_match_score
+                    rawVisitorSets.innerText = payload.visitor_match_score
+                    rawPeriod.innerText = payload.period
+                    rawClock.innerText = payload.clock
                 })
             {% else %}
                 source = io("{{source}}:9876")
@@ -162,11 +167,12 @@
                 })
 
                 source.on('update', payload => {
-                    rawHomeScore.innerText = payload.home_score
-                    rawVisitorScore.innerText = payload.visitor_score
-                    rawHomeSets.innerText = payload.home_sets
-                    rawVisitorSets.innerText = payload.visitor_sets
-                    rawSet.innerText = payload.current_set
+                    rawHomeScore.innerText = payload.home_team_score
+                    rawVisitorScore.innerText = payload.visitor_team_score
+                    rawHomeSets.innerText = payload.home_match_score
+                    rawVisitorSets.innerText = payload.visitor_match_score
+                    rawPeriod.innerText = payload.period
+                    rawClock.innerText = payload.clock
                 })
             {% endif %}
         </script>

@@ -5,7 +5,7 @@ from images import Logos
 from manager import WrestlingManager
 from bundle import bundle
 
-VERSION = 'v1.0.0 (12082021)'
+VERSION = 'v1.0.1 (12082021)'
 LOGOS = Logos()
 MANAGER = None # type: WrestlingManager
 
